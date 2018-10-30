@@ -37,9 +37,12 @@ d3.csv('data/rainfall-by-state.csv').then(data => {
     }
   });
 
+  const rainfallMin = d3.min(data, d => d.rainfall);
+  const rainfallMax = d3.max(data, d => d.rainfall);
   const rainfallMinMax = d3.extent(data, d => d.rainfall);
-  yScale.domain(rainfallMinMax);
+  yScale.domain([rainfallMin -10, rainfallMax + 10]);
   const yAxis = d3.axisLeft(yScale);
+
   svg.append('g')
     .call(yAxis);
 

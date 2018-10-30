@@ -37,11 +37,15 @@ d3.csv('data/rainfall-by-state.csv').then(data => {
     }
   });
 
+  const rainfallMin = d3.min(data, d => d.rainfall);
+  const rainfallMax = d3.max(data, d => d.rainfall);
   const rainfallMinMax = d3.extent(data, d => d.rainfall);
-  yScale.domain(rainfallMinMax);
+  yScale.domain([rainfallMin -10, rainfallMax + 10]);
   const yAxis = d3.axisLeft(yScale);
+
   svg.append('g')
-    .call(yAxis);
+    .call(yAxis)
+    .attr('class', 'axis');
 
   let dataset1 = [];
   let dataset2 = [];
@@ -104,7 +108,8 @@ function drawRain(selection, datasets) {
   .domain(states);
 
   xGroup
-    .call(xAxis);
+    .call(xAxis)
+    .attr('class', 'axis');
   
 
 
@@ -128,5 +133,7 @@ function drawRain(selection, datasets) {
     .append('circle')
     .attr('cy', d => yScale(d.rainfall))
     .attr('cx', d => xScale(d.state) + xScale.bandwidth()/2)
-    .attr('r', xScale.bandwidth()/2);
+    .attr('r', xScale.bandwidth()/2)
+    .style('fill', (d, i) => d3.schemeCategory10[i]);
+  
 }
