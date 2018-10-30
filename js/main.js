@@ -1,5 +1,5 @@
-const width = 1000;
-const height = 800;
+const width = 800;
+const height = 600;
 const margin = {left: 100, right: 50, top: 50, bottom: 100};
 const svgWidth = width + margin.left + margin.right;
 const svgHeight = height + margin.top + margin.bottom;
