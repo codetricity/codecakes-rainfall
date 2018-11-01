@@ -11,6 +11,9 @@ const svg = d3.select('body')
   .append('g')
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+
+drawLabels(svg, width, height);
+
 const xScale = d3.scaleBand()
   .range([0, width])
   .padding(0.3);
@@ -24,8 +27,8 @@ const yScale = d3.scaleLinear()
   .range([height, 0]);
 
 
-d3.csv('data/rainfall-by-state.csv').then(data => {
-  data.forEach(stateData => {
+d3.csv('data/rainfall-by-state.csv').then((data) => {
+  data.forEach((stateData) => {
     stateData.rainfall = +stateData.rainfall;
     const checkChar = /^[A-Z]/;
     for (let i = 0; i < 5; i++) {
@@ -40,18 +43,18 @@ d3.csv('data/rainfall-by-state.csv').then(data => {
   const rainfallMin = d3.min(data, d => d.rainfall);
   const rainfallMax = d3.max(data, d => d.rainfall);
   const rainfallMinMax = d3.extent(data, d => d.rainfall);
-  yScale.domain([rainfallMin -10, rainfallMax + 10]);
+  yScale.domain([rainfallMin - 10, rainfallMax + 10]);
   const yAxis = d3.axisLeft(yScale);
 
   svg.append('g')
     .call(yAxis)
     .attr('class', 'axis');
 
-  let dataset1 = [];
-  let dataset2 = [];
-  let dataset3 = [];
-  let dataset4 = [];
-  let dataset5 = [];
+  const dataset1 = [];
+  const dataset2 = [];
+  const dataset3 = [];
+  const dataset4 = [];
+  const dataset5 = [];
 
   data.forEach((element, index) => {
     if (index < 10) {
@@ -67,13 +70,12 @@ d3.csv('data/rainfall-by-state.csv').then(data => {
     }
   });
 
-  const datasets = 
-    [ dataset1,
-      dataset2,
-      dataset3,
-      dataset4,
-      dataset5
-    ];
+  const datasets = [
+    dataset1,
+    dataset2,
+    dataset3,
+    dataset4,
+    dataset5];
 
   const buttons = d3.selectAll('input');
   buttons.on('change', function(d) {
@@ -135,5 +137,23 @@ function drawRain(selection, datasets) {
     .attr('cx', d => xScale(d.state) + xScale.bandwidth()/2)
     .attr('r', xScale.bandwidth()/2)
     .style('fill', (d, i) => d3.schemeCategory10[i]);
+}
+
+function drawLabels(surface, w, h) {
+
+  surface.append('g')
+    .attr('class', 'title')
+    .append('text')
+    .text('Rainfall by US State')
+    .attr('x', w/2)
+    .attr('y', -10)
+    .attr('text-anchor', 'middle');
   
+  surface.append('g')
+    .attr('class', 'axisLabel')
+    .append('text')
+    .text('annual rainfall (inches)')
+    .attr('x', -50)
+    .attr('y', h/2)
+    .attr('transform', `rotate(-90, -50, ${h / 2})`);
 }
