@@ -8,7 +8,8 @@ module.exports = {
       "object-curly-newline": ["error", {multiline: true}],
       "no-plusplus": ["error", {allowForLoopAfterthoughts: true}],
       "no-use-before-define": ["off"],
-      "linebreak-style":["off"] // do not report windows CRLF errors
+      "linebreak-style": ["off"], // do not report windows CRLF errors
+      "no-param-reassign": ["off"]
     },
     "globals": {
       "d3": false
