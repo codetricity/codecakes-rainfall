@@ -11,7 +11,7 @@ https://codetricity.github.io/codecakes-rainfall/index.html
 Screenshot
 ==========
 
-
+..image:: docs/img/screenshot.png
 
 Lessons
 =======
